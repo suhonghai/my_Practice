@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>局域网聊天</title>
+</head>
+<body>
+	<h3>聊天内容：</h3>
+	<div id="info" style="width:500px; height:300px; border:1px solid; overflow: auto;"></div>
+	<h3>发送消息：</h3>	
+	昵称：<input type="text" id="nickname" value="小黄"><br>
+	消息：<textarea id="message" cols="30" rows="10"></textarea>
+	<input type="button" id="send" value="发送">
+
+	<script src="js/tools.js"></script>
+	<script>
+		function sendMsg() {
+			/* 使用 ajax 实现消息发送 */
+			// 创建对象
+			var xhr = new XMLHttpRequest();
+			// 打开
+			// query string
+			var _nk = $("#nickname").value,
+				_msg = format($("#message").value),
+				qs = "action=send&nickname=${_nk}&message=${_msg}",
+				url = "http://10.7.154.72/html_Php_Practice/day22/demo2/chat.php?" + qs;
+			console.log(url);
+			xhr.open("GET", url, true);
+			// 发送
+			xhr.send();
+			// 处理响应
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var responseData = xhr.responseText;
+					responseData = JSON.parse(responseData);
+					// 处理响应数据
+					if(responseData.status === 1){
+						var msg = responseData.data;
+						var html = `<div>${msg.nickname}(${msg.ip}) ${msg.createtime}说：${msg.message}</div>`;
+						$("#info").innerHTML += html;
+						$("#message").value = "";
+					}
+				}
+			}
+		}
+		// 发送消息
+		$("#send").onclick = sendMsg;
+		$("#message").onkeydown = function(e){
+			e = e || event;
+			var code = e.which || e.keyCode;
+			if(e.ctrlKey && code === 13) {
+				sendMsg();
+				// console.log(format($("#message").value))
+			}
+		}
+
+		// 接收消息
+		setInterval(function(){
+			// 创建对象
+			var xhr = new XMLHttpRequest();
+			// 打开
+			xhr.open("GET", "http://10.7.154.72/html_Php_Practice/day22/demo2/chat.php?action=receive", true);
+			// 发送
+			xhr.send();
+			// 处理
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var responseData = JSON.parse(xhr.responseText);
+					if (responseData.status === 1) {
+						var html = "";
+						responseData.data.forEach(function(msg){
+							html += `<div>${msg.nickname}(${msg.ip}) ${msg.createtime}说：${msg.message}</div>`
+						});
+						$("#info").innerHTML = html;
+						$("#info").lastChild.scrollIntoView();
+					}
+				}
+			}
+		}, 1000);
+
+		function format(str) {
+			return encodeURIComponent(str.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+		}
+	</script>
+</body>
+</html>

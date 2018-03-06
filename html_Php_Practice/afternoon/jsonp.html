@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="js/tools.js"></script>
+	<script>
+
+		function test() {
+			console.log("test");
+		}
+		
+		function abc(data) {
+			console.log(data);
+		}
+
+		/*	test({"status":1, "message":"success"});
+		*/
+
+		var _script = document.createElement("script");
+		_script.src = "http://127.0.0.1/jsonp.php?callback=abc";
+		$("body")[0].appendChild(_script);
+		$("body")[0].removeChild(_script);
+
+	</script>
+</body>
+</html>

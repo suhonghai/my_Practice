@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		请选择地址：
+		<select id="province"></select>
+		<select id="city"></select>
+		<select id="district"></select>
+		<script src="js/tools.js"></script>
+		<script>
+			//获取省份数据
+			function loadProvince(){
+				var _url = "http://route.showapi.com/1149-1?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&level=1"
+				ajax({
+					type : "get",
+					url :_url,
+					dataType :"json",
+					success :function(data){
+						var html = "<option value='-1'>请选择省份</option>";
+						 data.showapi_res_body.data.forEach(function(province){
+						 	html += `<option value="${province.id}">${province.areaName}</option>`;
+						 });
+						 $("#province").innerHTML = html;
+					},
+				});
+			}
+			loadProvince();
+			$("#province").onchange = loadCity;
+			function loadCity(){
+				var _parentId = $("#province").value;
+				console.log(_parentId)
+				var _url = "http://route.showapi.com/1149-2?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&parentId=" + _parentId;
+				ajax({
+					type : "get",
+					url: _url,
+					dataType : "json",
+					success: function(data){
+						console.log(data);
+						var html = "<option value='-1'>请选择城市</option>";
+						data.showapi_res_body.data.forEach(function(city){
+							html += `<option value="${city.id}">${city.areaName}</option>`;
+						});
+						$("#city").innerHTML = html;
+					},
+				});
+			};
+		</script>
+	</body>
+</html>

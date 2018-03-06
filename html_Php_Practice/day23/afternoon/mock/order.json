@@ -1,0 +1,30 @@
+{
+	"res_msg":"",
+	"res_code":"",
+	"res_body":[
+		{
+			"id":1,
+			"username":"xiaoming",
+			"prod_name":"商品1",
+			"amount":5
+		},
+		{
+			"id":2,
+			"username":"xiaoming",
+			"prod_name":"商品2",
+			"amount":5
+		},
+		{
+			"id":3,
+			"username":"xiaoming",
+			"prod_name":"商品3",
+			"amount":5
+		},
+		{
+			"id":4,
+			"username":"xiaoming",
+			"prod_name":"商品4",
+			"amount":4
+		}
+	]
+}

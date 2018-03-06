@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Lookz Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/demo_Practice/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="/demo_Practice/css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!--webfont-->
+<link href='/demo_Practice/css/fonts.useso.css' rel='stylesheet' type='text/css'>
+<!-- start menu -->
+<link href="/demo_Practice/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div class="wrap">	
+<div class="container">
+
+<!-- 头部 -->
+
+<div class="content">
+  <div class="content_box">
+	<div class="men cart cart_empty">
+	    <h1>It appears that your cart is currently empty!</h1>
+	    <h2>You can continue browsing <a href="men.html">here</a>.</h2>
+    </div>
+
+    <table border="1" class="men cat cart_table">
+    	<thead>
+    		<tr>
+    			<td><label><input type="checkbox" class="ck_all">全选</label></td>
+    			<td>编号</td>
+    			<td>图片</td>
+    			<td>标题</td>
+    			<td>单价</td>
+    			<td>数量</td>
+    			<td>小计</td>
+    			<td>操作</td>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		
+    	</tbody>
+    	<tfoot>
+    		<tr>
+    			<td>合计</td>
+    			<td colspan="7">0.00</td>
+    		</tr>
+    	</tfoot>
+    </table>
+    <script type="text/html" id="cart_template">
+    	{{each products as prod}}
+    	<tr>
+    		<td><input type="checkbox" class="ck_prod"></td>
+    		<td>{{prod.pid}}</td>
+    		<td><img src="/demo_Practice/{{prod.img}}"></td>
+    		<td>{{prod.title}}</td>
+    		<td>{{prod.price}}</td>
+    		<td><button class="minus">-</button><input type="text" value="{{prod.amount}}" size="2" class="amount"><button class="add">+</button></td>
+    		<td class="sub">{{(prod.amount*prod.price).toFixed(2)}}</td>
+    		<td><a href="javascript:void(0);" class="del">删除</a></td>
+    	</tr>
+    	{{/each}}
+    </script>
+	
+	<!-- 尾部 -->
+
+   </div>
+</div>	
+
+<script src="/demo_Practice/lib/jquery/jquery-1.12.4.min.js"></script>
+<script src="/demo_Practice/lib/jquery_plugins/jquery.cookie.js"></script>
+<script src="/demo_Practice/lib/artTemplate/template.js"></script>
+<script src="/demo_Practice/js/loadHeaderFooter.js"></script>
+<script src="/demo_Practice/js/cart.js"></script>
+</body>
+</html>		

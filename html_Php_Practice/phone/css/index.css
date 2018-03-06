@@ -1,0 +1,93 @@
+/*nav部分*/
+nav{
+	height: 60.66vw;
+	
+}
+nav img{
+	width: 100vw;
+	height: 50vw;
+}
+nav .ul1{
+	height: 11.33vw;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+nav .ul1 li{
+	width: 25vw;
+}
+nav .ul1 li i{
+	font-size: 4vw !important;
+	color: red;
+}
+nav .ul1 li span{
+	font-size: 3.2vw;
+	color: #636363;
+}
+
+/*main部分*/
+main{
+	flex:1 ;
+	background-color: #f2f3f7;
+	display: flex;
+	flex-direction: column;
+}
+main .ul2{
+	flex: 1;
+	overflow: auto;
+	height:49.33vw;
+	margin: 2.66vw 0;
+	background-color: white;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+main .ul2 li{
+	width: 25vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+main .ul2 li i{
+	font-size: 15.06vw !important;
+	color: #fff8ee;
+}
+main .ul2 li span{
+	font-size: 2.66vw;
+	color: #cecece;
+}
+main p{
+	height: 24.93vw;
+}
+main p img{
+	width: 100%;
+	height:100%
+}
+main div{
+	width: 100vw;
+	height: 4vw;
+	display: flex;
+	justify-content: space-between;
+}
+main div b{
+	width: 50vw;
+	border: 1px solid #CCCCCC;
+	box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

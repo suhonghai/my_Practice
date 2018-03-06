@@ -1,0 +1,10 @@
+{
+	"res_msg":"",
+	"res_code":"",
+	"res_body":{
+		"username":"xiaoming",
+		"address":"四川成都",
+		"age":"25",
+		"phone":"xxxxxxx"
+	}
+}

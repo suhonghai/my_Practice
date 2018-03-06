@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src = "js/tools.js"></script>
+		<script>
+//			function loadProvince() {
+//			var _url = "http://cd.meituan.com/ptapi/recommends";
+//			ajax({
+//				type : "get",
+//				url : _url,
+//				success : function(data){
+//					console.log(data);
+//				}
+//			});
+//		}
+//		loadProvince();
+//		
+		function abc(data) {
+			console.log(data);
+		}
+		var _script = document.createElement("script");
+		_script.src = "http://cd.meituan.com/ptapi/recommends?callback=abc";
+		$("body")[0].appendChild(_script);
+		$("body")[0].removeChild(_script);
+		abc();
+		</script>
+	</body>
+</html>

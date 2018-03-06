@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Lookz Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!--webfont-->
+<link href='css/fonts.useso.css' rel='stylesheet' type='text/css'>
+<!-- start menu -->
+<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" href="/demo_Practice/lib/jquery_plugins/xmcarousel.css">
+</head>
+<body>
+<div class="wrap">	
+   <div class="container">
+
+       <!-- 头部 -->
+
+	<div class="grid_1">
+		<div class="col-md-3 banner_left">
+			<img src="images/pic1.png" class="img-responsive" alt=""/>
+			<div class="banner_desc">
+				<h1>Slim Fit Men </h1>
+				<h2>Roundcheck T-Shirt</h2>
+				<h5>$125
+					   <small>Only</small>
+					</h5>
+			    <a href="#" class="btn1 btn4 btn-1 btn1-1b">Add To Cart</a>
+			</div>
+		</div>
+		<div class="col-md-9 banner_right">
+			 <!-- FlexSlider -->
+              <section class="slider">
+				  <div class="flexslider">
+					<!-- <ul class="slides">
+						<li style="display: block;"><img src="images/banner.jpg" alt=""/></li>
+						<li><img src="images/banner1.jpg" alt=""/></li>
+					</ul> -->
+				  </div>
+	          </section>
+              <!-- FlexSlider -->
+		</div>
+		<div class="clearfix"></div>
+	</div>
+<div class="content">
+  <div class="content_box">
+	<ul class="grid_2">
+		
+		
+		<div class="clearfix"> </div>
+	</ul>
+
+	<!-- 创建模板：显示tshirt的数据 -->
+	<script type="text/html" id="tshirt_template">
+		{{each products as prod}}
+		<a href="single.html"><li>
+			<span style="display: none;" class="pid">{{prod.pid}}</span>
+			<img src="{{prod.img}}" class="img-responsive img" alt=""/>
+			<span class="btn5 price">{{prod.price}}</span>
+			<p class="title">{{prod.title}}</p>
+		</li></a>
+		{{/each}}
+	</script>
+	<div class="grid_3">
+		<div class="col-md-6 box_2">
+			<div class="section_group"> 
+		      	<div class="col_1_of_2 span_1_of_2">
+		      		<img src="images/pic7.jpg" class="img-responsive" alt=""/>
+		        </div>
+                <div class="col_1_of_2 span_1_of_2">
+		      		<img src="images/pic8.jpg" class="img-responsive" alt=""/>
+		        </div>
+                <div class="clearfix"> </div>
+            </div>
+		</div>
+		<div class="col-md-6">
+			<div class="box_3">
+			  <div class="col_1_of_2 span_1_of_2 span_3">
+		      		<h3>Paul Slim Fit Men
+						Roundneck
+						T-Shirt</h3>
+                  <h4>$156</h4>
+                  <p>Offer Available till Sunday 12 Nov 2014.</p>
+                  <a href="#" class="btn1 btn6 btn-1 btn1-1b">Add To Cart</a>
+		        </div>
+                <div class="col_1_of_2 span_1_of_2 span_4">
+                   <div class="span_5">
+		      		 <img src="images/pic9.png" class="img-responsive" alt=""/>
+		      	    </div>
+		        </div>
+                <div class="clearfix"> </div>
+            </div>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+<!-- 尾部 -->
+	<div class="footer"></div>
+   </div>
+</div>	
+<link href="css/flexslider.css" rel='stylesheet' type='text/css' />
+
+<script src="/demo_Practice/lib/jquery/jquery-1.12.4.min.js"></script>
+<script src="/demo_Practice/lib/jquery_plugins/jquery.cookie.js"></script>
+<script src="/demo_Practice/lib/jquery_plugins/jquery.xmcarousel.js"></script>
+<script src="/demo_Practice/lib/artTemplate/template.js"></script>
+<script src="/demo_Practice/js/loadHeaderFooter.js"></script>
+<script src="/demo_Practice/js/index.js"></script>
+</body>
+</html>		

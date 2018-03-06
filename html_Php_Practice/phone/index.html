@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="iconfont/iconfont.css"/>
+		<style>
+			*{margin: 0;padding: 0;}
+			#container{
+				width: 100vw;
+				height: 50vw;
+				position: relative;
+				margin: auto;
+				cursor: pointer;
+				border: 0.133vw solid;
+				overflow: hidden;
+			}
+			#box{
+				position: absolute;
+				height: 50vw;
+				list-style: none;
+			}
+			#box li{
+				width: 100vw;
+				height: 50vw;
+				float: left;
+			}
+			.pages{
+				width: 100vw;
+				height: 4vw;
+				position: absolute;
+				bottom: 0;
+				background-color: #000;
+				line-height: 4vw;
+			}
+			.pages b{
+				width: 2.66vw;
+				height: 2.66vw;
+				margin: 0.66vw;
+				display: inline-block;
+				border-radius: 1.33vw;
+				background-color: #fff;	
+				cursor: pointer;
+			}
+			.pages .current{
+				background-color: red;
+			}
+			.pre, .next{
+				width: 6vw;
+				height: 13.33vw;
+				position: absolute;
+				background-color: #000;
+				top: 0px;		
+				bottom: 0px;
+				color: #FFFFFF;
+				font-size:5.33vw;
+				margin: auto;
+				line-height: 13.33vw;
+				text-align: center;
+				cursor: pointer;
+			}
+			.next{
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<!--header部分-->
+		<header>
+			<p>
+				<i class="iconfont icon-meishi1"></i>
+				<input type="text" placeholder="搜索想要的美食" id="word"/>
+			</p>
+			<i class="iconfont icon-xinxi"></i>
+			<i class="iconfont icon-shangjiarenzheng"></i>
+		</header>
+		
+		<!--nav部分-->
+		<nav>
+			<div id="container">
+				<!--图片列表-->
+			<ul id="box">
+				<li><img src="https://img.4008123123.com/resource/BannerP/Banner_1_2018_02_02_10_43_38.jpg"/></li>
+				<li><img src="https://img.4008123123.com/resource/BannerP/Banner_1_2018_02_02_10_44_43.jpg"/></li>
+				<li><img src="https://img.4008123123.com/resource/BannerP/Banner_1_2018_02_02_17_57_37.jpg"/></li>
+				<li><img src="https://img.4008123123.com/resource/BannerP/Banner_1_2017_12_12_12_03_31.jpg"/></li>
+			</ul>
+			<div class="pages">
+				
+			</div>
+			<div class="pre">&lt;</div>
+			<div class="next">&gt;</div>
+			</div>
+
+			<script src="js/tools.js"></script>
+			<script>
+				let list = $("li"),//所有轮播图张数
+					len = list.length,//li长度
+					liWidth = list[0].offsetWidth,//一个li的宽度
+					currentIndex = 1,//当前元素的下标
+					nextIndex = 2,
+					timer = null,
+					duration = 3000;
+				//克隆第一张和最后一张
+				let first = list[0].cloneNode(true),
+					last = list[len-1].cloneNode(true);
+				$("#box").appendChild(first);
+				$("#box").insertBefore(last, list[0]);
+				len += 2;
+				//动态设置小圆点
+				let html = "";
+				for(let i = 0;i < len-2;i++){
+					html += `<b></b>`;
+				}
+				$(".pages")[0].innerHTML = html;
+				//给第一个小圆点设置背景颜色
+				let circles = $("b");
+				circles[0].className = "current" ;
+				//动态设置宽度
+				css($("#box"),{width:len * liWidth +"px", left : -liWidth +"px"});
+				//自动轮播
+				window.onload = move;
+				window.onresize = move;
+				timer = setInterval(move, 1000);
+				
+				//定义轮播函数
+				function move(){
+					//计算定位
+					let _left = -1 * liWidth * nextIndex;
+					//运动动画
+					animate($("#box"),{left : _left},200,function(){
+						//运动结束后继续判断
+						if(nextIndex >= len){
+							currentIndex = 1;
+							nextIndex = 2;
+							$("#box").style.left = -liWidth +"px";
+						}
+						if(currentIndex <= 0){
+							currentIndex = len - 2;
+							nextIndex = len - 1;
+							$("#box").style.width = (-liWidth * (len - 2))+"px";
+						}
+					});
+					//修改小圆点样式
+					//找出修改为红色背景的小圆点索引
+					let circleIndex = nextIndex -1;
+					if(circleIndex >= len -2)
+						circleIndex = 0;
+					else if(circleIndex <= -1)
+						circleIndex = len -3;
+					//清除所有小圆点使用的类名
+					for(let i = 0;i < len-2;i++){
+						circles[i].className =""; 
+					}
+					//将circleIndex处的小圆点添加上类名
+					circles[circleIndex].className = "current";
+					
+					//修改索引
+					currentIndex = nextIndex;
+					nextIndex++;
+				}
+				
+				//移入移出容器
+				$("#container").onmouseenter = function(){
+					clearInterval(timer);
+				}
+				$("#container").onmouseleave = function(){
+					timer = setInterval(move, 1000);
+				}
+				$(".pages")[0].onmousemove = function(e){
+					e = e || event;
+					var src = e.target || e.srcElement;
+					if(src !== this){
+						//获取小圆点的下标
+						var index = Array.from(circles).indexOf(src);
+						currentIndex = index -1;
+						move();
+					}
+				}
+				//向前向后
+				$(".pre")[0].onclick = function(){
+					nextIndex = currentIndex -1;
+					move();
+				}
+				$(".next")[0].onclick = function(){
+					move();
+				}
+			</script>
+
+			<ul class="ul1">
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+			</ul>
+		</nav>
+		
+		<!--main部分-->
+		<main>
+			<ul class="ul2">
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li>
+				<li>
+					<i class="iconfont icon-meishi2"></i>
+					<span>蛋糕</span>
+				</li> 
+			</ul>
+			<p>
+				<img src="images/phone2.jpg"/>
+			</p>
+			<div>
+				<b></b>
+				<b></b>
+			</div>
+		</main>
+		
+		
+		<!--footer部分-->
+		<footer>
+			<ul>
+				<li>
+					<i class="iconfont icon-canyindianmeishidian"></i>
+					<span>首页</span>
+				</li>
+				<li>
+					<i class="iconfont icon-fujin"></i>
+					<span>附近</span>
+				</li>
+				<li>
+					<i class="iconfont icon-faxian2"></i>
+					<span>发现</span>
+				</li>
+				<li>
+					<i class="iconfont icon-ziyuan"></i>
+					<span>订单</span>
+				</li>
+				<li>
+					<i class="iconfont icon-wode"></i>
+					<span>我的</span>
+				</li>
+			</ul>
+		</footer>
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script type="text/javascript">
+			$("#word").onkeyup = function(){
+			// 待跨域请求的URL
+			var _url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+ this.value +"&cb=handle";
+			// 创建 <script> 元素
+			var _script = document.createElement("script");
+			// 设置 src
+			_script.src = _url;
+			// 添加到 body 中
+			$("body")[0].appendChild(_script);
+			// 从 body 中删除
+			$("body")[0].removeChild(_script);
+		}
+		// 回调函数
+		function handle(data) {
+			var html = "";
+			data.s.forEach(function(curr){
+				html += `<li>
+					<img src=""/>
+					<span>${curr}</span>
+				</li>`;
+			});
+			$(".ul2")[0].innerHTML = html;
+		}
+		</script>
+	</body>
+</html>
+
+
+
+

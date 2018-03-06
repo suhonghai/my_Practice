@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="word">
+	<div id="info"></div>
+
+	<script src="js/tools.js"></script>
+	<script>
+		// 使用 jsonp 跨域访问百度提示接口
+		$("#word").onkeyup = function(){
+			// 待跨域请求的URL
+			var _url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+ this.value +"&cb=handle";
+			// 创建 <script> 元素
+			var _script = document.createElement("script");
+			// 设置 src
+			_script.src = _url;
+			// 添加到 body 中
+			$("body")[0].appendChild(_script);
+			// 从 body 中删除
+			$("body")[0].removeChild(_script);
+		}
+
+		// 回调函数
+		function handle(data) {
+			var html = "";
+			data.s.forEach(function(curr){
+				html += `<div>${curr}</div>`;
+			});
+			$("#info").innerHTML = html;
+		}
+	</script>
+</body>
+</html>

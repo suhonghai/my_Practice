@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="js/tools.js"></script>
+	<script>
+		/*var p = new Promise(function(resolve, reject){
+			ajax({
+				type:"get",
+				url:"mock/login.json",
+				dataType : "json",
+				success : function(data){
+					resolve(data);
+				},
+				error : function(errMsg){
+					reject(errMsg);
+				}
+			});
+		});
+
+		p.then(function(data){
+			console.log("then : " , data);
+			return new Promise(function(resolve){
+				ajax({
+					type:"get",
+					url : "mock/order.json",
+					dataType:"json",
+					success:function(data){
+						resolve(data);
+					}
+				});
+			});
+		}).then(function(data){
+			console.log("then 2222 : ", data);
+		});*/
+	</script>
+
+	<script>
+		// 利用Promise对象来包装ajax请求
+		function promiseAjax(url) {
+			return new Promise(function(resolve, reject){
+				ajax({
+					type : "get",
+					url : url,
+					dataType : "json",
+					success : function(data){
+						resolve(data);
+					},
+					error : function(errMsg){
+						reject(errMsg);
+					}
+				});
+			});
+		}
+
+		/*promiseAjax("mock/login.json").then(function(data){
+			console.log("请求 login.json 成功：", data);
+			return promiseAjax("mock/order.json");
+		}).then(function(data){
+			console.log("请求 order.json 成功：", data);
+		});*/
+	</script>
+
+	<script>
+		// 请求加载省份
+		var _url1 = "http://route.showapi.com/1149-1?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&level=1";
+		var _url2 = "http://route.showapi.com/1149-1?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&level=1&page=2";
+
+		Promise.all([promiseAjax(_url1), promiseAjax(_url2)]).then(function(arr){
+			arr[0].showapi_res_body.data.concat(arr[1].showapi_res_body.data).forEach(function(province){
+				console.log(province.areaName);
+			});
+		});
+	</script>
+</body>
+</html>

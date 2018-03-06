@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>注册</h1>
+	<input type="text" placeholder="用户名"><br>
+	<input type="text" placeholder="输入验证码" id="input"> <img src="" id="gen_code"> <a href="javascript:void(0);" id="change">切换验证码</a> <span id="code_info"></span>
+	<button id="reg">注册</button>
+
+	<script src="js/tools.js"></script>
+	<script>
+		
+		function genCode() {
+			var _url = "http://route.showapi.com/932-2?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&length=6&specials=true";
+
+			ajax({
+				type : "get",
+				url : _url,
+				dataType : "json",
+				success : function(data){
+					data = data.showapi_res_body;
+					// 图像
+					var _src = data.image;
+					$("#gen_code").src = _src;
+					// 暂存关联sid
+					$("#gen_code").sid = data.sid;
+				}
+			});
+		}
+
+		// 页面加载生成验证码
+		genCode();
+
+		// 切换验证码
+		$("#change").onclick = genCode;
+
+		// 验证是否输入正确
+		$("#reg").onclick = function(){
+			// 获取输入的验证码
+			var _input = $("#input").value;
+			// 构建验证Url
+			/*var _url = "http://route.showapi.com/932-1?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&checkcode=" + _input + "&sid=" + $("#gen_code").sid;
+			// ajax校验
+			ajax({
+				type : "get",
+				url : _url,
+				dataType : "json",
+				success : function(data){
+					if(data.showapi_res_body.valid) {
+						$("#code_info").innerHTML = "成功";
+					} else {
+						$("#code_info").innerHTML = "验证码输入有误";
+					}
+				}
+			});*/
+
+			// ajax校验
+			ajax({
+				type : "post",
+				url : "http://route.showapi.com/932-1",
+				data : {
+					showapi_appid : "29550",
+					showapi_sign : "08402fce064a484baad949d9a18f75e7",
+					checkcode : _input,
+					sid : $("#gen_code").sid
+				},
+				dataType : "json",
+				success : function(data){
+					if(data.showapi_res_body.valid) {
+						$("#code_info").innerHTML = "成功";
+					} else {
+						$("#code_info").innerHTML = "验证码输入有误";
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/*重置样式*/
+html,body,div,p,h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,form,fieldset,legend,img,span,img{margin: 0;padding: 0;}
+fieldset,img,input{border: none;}
+img{vertical-align: top;}
+i,em,b,strong{font-style: normal; font-weight: normal;}
+ul,li{list-style: none;}
+a{text-decoration: none;}
+
+html,body{
+	height: 100%;
+}
+body{
+	display: flex;
+	flex-direction: column;
+}
+/*header部分*/
+header{
+	height: 12vw;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+header p{
+	width:71.44vw;
+	height: 6.66vw;
+	background-color: #f2f3f7;
+	border-radius: 2vw;
+}
+header p i{
+	
+}
+header p input{
+	width: 64vw;
+	height: 5.33vw;
+	margin-left: 0.9vw;
+	background-color: #f2f3f7;
+	outline: none;
+}
+header i:nth-child(2){
+	color: red;
+	font-size: 5vw !important;
+}
+header i:nth-child(3){
+	color: red;
+	font-size: 5vw !important;
+}
+
+/*footer部分*/
+footer{
+	height: 13.33vw;
+}
+footer ul{
+	height: 12.9vw;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+footer ul li{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+footer ul li i{
+	font-size: 6.13vw !important;
+	color: #4169E1;
+}
+footer ul li span{
+	font-size: 2.53vw;
+	color: #959595;
+}

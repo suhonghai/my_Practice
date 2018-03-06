@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>查询天气预报：</h1>
+	<input type="text" id="city"><button id="btn">查询</button>
+	<div id="info"></div>
+
+	<script src="js/tools.js"></script>
+	<script>
+		$("#btn").onclick = function(){
+			var _url = "http://route.showapi.com/9-2?showapi_appid=29550&showapi_sign=08402fce064a484baad949d9a18f75e7&area=" + $("#city").value;
+			ajax({
+				type : "get",
+				url : _url,
+				dataType : "json",
+				success : function(responseData){
+					var weather = responseData.showapi_res_body;
+					var html = "";
+					for (var attr in weather) {
+						if (attr.startsWith("f")) {
+							// 预报对象
+							var forecast = weather[attr]; 
+							html += `<div>日期：${forecast.day}，温度：${forecast.night_air_temperature}~${forecast.day_air_temperature}，白天天气：${forecast.day_weather} <img src="${forecast.day_weather_pic}"></div>`;
+						}
+					}
+					$("#info").innerHTML = html;
+				}
+			});
+		}
+	</script>
+</body>
+</html>
